@@ -159,15 +159,16 @@ class LinkedList(Observer):
         :param node: узел - int, str
         :return: список - list, если элемент не найден - None
         """
-        if not isinstance(node, (int, str)):
-            raise TypeError
+        # if not isinstance(node, (int, str)):
+        #     raise TypeError
 
         current_node = self.head
         list_i = []
         i = 0
         while i <= self.size - 1:
-            if current_node.data == node:
+            if current_node.data.author == node:
                 list_i.append(i)
+
             i += 1
             current_node = current_node.next_node
 
@@ -185,8 +186,8 @@ class LinkedList(Observer):
         :param node: узел - int, str
         :return:
         """
-        if not isinstance(node, (int, str)):
-            raise TypeError
+        # if not isinstance(node, (int, str)):
+        #     raise TypeError
 
         if self.head is None:
             print("Список пустой")
@@ -266,18 +267,28 @@ class LinkedList(Observer):
         Преобразование двунаправленного списка в словарь
         :return: словарь - dict
         """
-        # d = {
-        #     "Автор": Book.author,
-        #     "Название": Book.title,
-        #     "Год издания": Book.year
-        # }
-        d = {}
-        i = 0
+
         current_node = self.head
+        d = {}
+
+        # if current_node.data == isinstance(Book, Book):
+        i = 0
         while i < self.size:
-            d[i] = current_node.data
+            book_instance = {
+                "Автор": current_node.data.author,
+                "Название": current_node.data.title,
+                "Год издания": current_node.data.year
+            }
+            d[i] = book_instance
             i += 1
             current_node = current_node.next_node
+        # else:
+        #     i = 0
+        #     current_node = self.head
+        #     while i < self.size:
+        #         d[i] = current_node.data
+        #         i += 1
+        #         current_node = current_node.next_node
         return d
 
     def from_dict(self, d):
@@ -286,8 +297,13 @@ class LinkedList(Observer):
         :param d: словарь - dict
         :return:
         """
+        book = Book("","","")
         for index, value in d.items():
-            self.insert(value, index)
+            book.author = value['Автор']
+            book.title = value['Название']
+            book.year = value['Год издания']
+
+            self.insert(value, book)
         print(self.to_dict())
 
     def load(self):

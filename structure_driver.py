@@ -22,7 +22,7 @@ class JSONFileDriver(IStructureDriver):
 
     def write(self, d):
         with open(self.__filename, 'w', encoding='UTF-8') as f:
-            json.dump(d, f, ensure_ascii=False)
+            json.dump(d, f, indent=2, ensure_ascii=False)
 
 
 class JSONStringDriver(IStructureDriver):

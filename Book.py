@@ -1,4 +1,8 @@
-class Book:
+from weakref import ref
+from react import *
+
+
+class Book(WeakSubject):
     def __init__(self, author, title, year):
         super().__init__()
         self.is_valid_book(author, title, year)
