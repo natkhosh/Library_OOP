@@ -156,14 +156,15 @@ class BookLib:
 
             if command == 'add' or command == 'del' or command == 'edit' or command == 'find' or command == 'exit':
                 if command == 'add':
-                    newbook = Book()
-                    newbook.author = str(input('Введите автора книги: >  '))
-                    newbook.title = str(input('Введите название книги: >  '))
-                    newbook.year = str(input('Введите год издания книги: >  '))
-                    if self.add_del_book(newbook, 'add'):
+                    new_book = Book()
+                    new_book.author = str(input('Введите автора книги: >  '))
+                    new_book.title = str(input('Введите название книги: >  '))
+                    new_book.year = str(input('Введите год издания книги: >  '))
+                    if self.add_del_book(new_book, 'add'):
                         print('> Книга добавлена', '\n')
                     else:
                         print('> Книга не добавлена', '\n')
+
 
                 if command == 'del':
                     delbook = Book

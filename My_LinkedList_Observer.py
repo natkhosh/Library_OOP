@@ -4,6 +4,7 @@ from structure_driver import *
 # IStructureDriver, JSONFileDriver
 from react import *
 # Observer, Data
+from Class_Library import Book
 
 
 class Node(Data):
@@ -75,8 +76,8 @@ class LinkedList(Observer):
         Добавление нового узла в конец списка
         :param data: узел - int, str
         """
-        if not isinstance(data, (int, str)):
-            raise TypeError
+        # if not isinstance(data, (int, str)):
+        #     raise TypeError
 
         if self.head is None:
             self.head = Node(None, None, data)
@@ -91,6 +92,7 @@ class LinkedList(Observer):
             self.head.prev_node = ref(self.tail)
         self.size += 1
         self.update()
+        return True
 
     def insert(self, node, index=0):
         """
@@ -264,6 +266,11 @@ class LinkedList(Observer):
         Преобразование двунаправленного списка в словарь
         :return: словарь - dict
         """
+        # d = {
+        #     "Автор": Book.author,
+        #     "Название": Book.title,
+        #     "Год издания": Book.year
+        # }
         d = {}
         i = 0
         current_node = self.head
@@ -273,7 +280,7 @@ class LinkedList(Observer):
             current_node = current_node.next_node
         return d
 
-    def from_dict(self, d={0: 12, 1: 30, 2: 1, 3: 3}):
+    def from_dict(self, d):
         """
         Преобразование из словаря
         :param d: словарь - dict

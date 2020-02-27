@@ -38,5 +38,3 @@ class Data(WeakSubject):
             self._data = data
             self.notify()
 
-
-
