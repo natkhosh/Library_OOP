@@ -54,3 +54,4 @@ class Book(WeakSubject):
         self.is_valid_book(self.__author, self.__title, value)
         self.__year = value
         self.notify()
+

@@ -7,7 +7,7 @@ from react import *
 from Class_Library import Book
 
 
-class Node(Data):
+class Node:
 
     def __init__(self, prev_node=None, next_node=None, data=None):
         """
@@ -16,7 +16,7 @@ class Node(Data):
            :param next_node: type(self)
            :param data: type(self)
            """
-        super().__init__(data)
+        # super().__init__(data)
 
         if prev_node is not None and not isinstance(prev_node, type(self)):
             raise TypeError('prev_node must be Node or None')
@@ -26,7 +26,7 @@ class Node(Data):
 
         self.prev_node = ref(prev_node) if prev_node is not None else None
         self.next_node = next_node
-        # self.data = data
+        self.data = data
 
     def __str__(self):
         return self.data
@@ -58,7 +58,7 @@ class LinkedList(Observer):
         s = ''
         i = 0
         while i < self.size:
-            s += f'{current_node.data}->'
+            s += f'{current_node.data} -> '
             current_node = current_node.next_node
             i += 1
         return s
@@ -153,9 +153,10 @@ class LinkedList(Observer):
         self.tail = None
         self.update()
 
-    def find(self, node):
+    def find(self, book: Book):
         """
         Поиск узла по узлу
+        :param book:
         :param node: узел - int, str
         :return: список - list, если элемент не найден - None
         """
@@ -166,15 +167,17 @@ class LinkedList(Observer):
         list_i = []
         i = 0
         while i <= self.size - 1:
-            if current_node.data.author == node:
-                list_i.append(i)
-
+            if (current_node.data.author == book.author)\
+                    or (current_node.data.title == book.title)\
+                    or (current_node.data.year == book.year):
+                list_i.append(current_node.data)
             i += 1
-            current_node = current_node.next_node
+
+            current_node.data = current_node.next_node.data
 
         if len(list_i) == 1:
             return list_i[0]
-        elif len(list_i) < 1:
+        elif len(list_i) > 1:
             return list_i
         else:
             print("Элемент не найден")
@@ -297,13 +300,13 @@ class LinkedList(Observer):
         :param d: словарь - dict
         :return:
         """
-        book = Book("","","")
+        # book = Book("","","")
         for index, value in d.items():
-            book.author = value['Автор']
-            book.title = value['Название']
-            book.year = value['Год издания']
+            # book.author = value['Автор']
+            # book.title = value['Название']
+            # book.year = value['Год издания']
 
-            self.insert(value, book)
+            self.insert(value, index)
         print(self.to_dict())
 
     def load(self):

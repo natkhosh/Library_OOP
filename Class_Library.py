@@ -42,9 +42,10 @@ class Library:
         structure_driver = SDFabric.get_sd_driver(driver_).build()
         self.__ll = LinkedList(structure_driver)
 
+
+
     def run(self):
         self.__init_drivers()
-
 
         # print("Использовать библиотеку по умолчанию или создать новую?",
         #       '\n\t- yes (библиотка поумолчанию)', '\n\t- no (создать новую библиотеку)')
@@ -75,15 +76,19 @@ class Library:
                         print('> Книга добавлена', '\n')
                     else:
                         print('> Книга не добавлена', '\n')
+                        self.update()
 
                 if command == 'del':
                     del_author = str(input('Введите автора книги: >  '))
                     del_book_name = str(input('Введите название книги: >  '))
                     del_book_year = str(input('Введите год издания книги: >  '))
+                    del_book = Book(del_author, del_book_name, del_book_year)
+                    self.__ll.remove(del_book)
                     # if add_del_book(file, del_author, del_book_name, del_book_year, 'del'):
                     #     print('> Книга удалена', '\n')
                     # else:
                     #     print('> Книга не удалена', '\n')
+
 
                 if command == 'edit':
                     add_author = str(input('Введите автора книги: >  '))
@@ -99,9 +104,12 @@ class Library:
                     #     print('> Книга не отредактирована', '\n')
 
                 if command == 'find':
+                    # l = LinkedList()
                     search_ = str(input('Введите поисковый запрос: >  '))
-                    books_find = self.__ll.find(search_)
-                    print('Список найденных книг: >  ', books_find, '\n')
+                    search_book = Book(search_, search_, search_)
+
+                    print('Список найденных книг: >  ')
+                    print(self.__ll.find(search_book))
 
                 if command == 'exit':
                     break
